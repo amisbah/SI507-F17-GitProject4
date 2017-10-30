@@ -3,6 +3,8 @@ import requests_oauthlib
 import webbrowser
 import json
 
+# MAHMED: updated some lines below for more investigation and caching
+# Please check code to see if it suffices!
 
 # Get these from the Twitter website, by going to
 # https://apps.twitter.com/ and creating an "app"
@@ -15,8 +17,6 @@ client_secret = "" # What Twitter calls Consumer Secret
 if not client_secret or not client_key:
     print("You need to fill in client_key and client_secret. See comments in the code around line 8-14")
     exit()
-
-
 
 def get_tokens():
     ## Step 1. Obtain a request token which will identify you (the client) in the next step.
@@ -154,8 +154,9 @@ r = oauth.get("https://api.twitter.com/1.1/search/tweets.json", params = {'q': '
 
 # investigate the data
 print(type(r.json()))
-# print(json.dumps(r.json(), indent=2)) # another way to print it pretty
+print(json.dumps(r.json(), indent=2)) # another way to print it pretty
 res = r.json() # get a Python object in a variable, you now know it's a dictionary
+print(len(res.keys()))
 print(list(res.keys())) # print the dictionary's keys
 
 # cache the data we got back from the request
@@ -209,7 +210,7 @@ for i in range(5):
 
 print(ids)
 print(type(ids))
-# print(json.dumps(collected_tweets,indent=2))
+print(json.dumps(collected_tweets,indent=2))
 
 
 # a super simple version of "caching"
